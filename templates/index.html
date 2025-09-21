@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOCX Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>DOCX Style Converter</h1>
+        <form method="post" enctype="multipart/form-data" id="upload-form">
+            <div class="drag-drop" id="input-drop">
+                Drag & Drop Input DOC Here
+                <input type="file" name="input_file" id="input_file">
+            </div>
+            <div class="drag-drop" id="format-drop">
+                Drag & Drop Format DOC Here
+                <input type="file" name="format_file" id="format_file">
+            </div>
+            <button type="submit">Convert</button>
+        </form>
+    </div>
+
+<script>
+function setupDragDrop(dropId, inputId) {
+    const drop = document.getElementById(dropId);
+    const input = document.getElementById(inputId);
+
+    drop.addEventListener('dragover', e => {
+        e.preventDefault();
+        drop.classList.add('hover');
+    });
+
+    drop.addEventListener('dragleave', () => drop.classList.remove('hover'));
+
+    drop.addEventListener('drop', e => {
+        e.preventDefault();
+        drop.classList.remove('hover');
+        input.files = e.dataTransfer.files;
+    });
+}
+
+setupDragDrop('input-drop', 'input_file');
+setupDragDrop('format-drop', 'format_file');
+</script>
+</body>
+</html>
